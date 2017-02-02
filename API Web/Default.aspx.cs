@@ -26,7 +26,7 @@ namespace Accounts_API_Web
         //private string _connectUrl = "https://connect.spotware.com/";
         //private string _apiUrl = "https://api.spotware.com/";
         //private string _apiHost = "tradeapi.spotware.com";
-        private int _apiPort = 5032;
+        private int _apiPort = 5032; 
         private TcpClient _tcpClient = new TcpClient();
         private SslStream _apiSocket;
         protected void Page_Load(object sender, EventArgs e)
