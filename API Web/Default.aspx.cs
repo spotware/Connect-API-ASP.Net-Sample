@@ -15,17 +15,17 @@ namespace Accounts_API_Web
 {
     public partial class _Default : Page
     {
-        private string _clientId = "141_P2S4PV2w2jv1fsJxHuhAkAhYaLGwBQpLk80DvHSj3bc0xhYPuC";
-        private string _clientSecret = "ET2ee1B4JGme1XH4AQUNOInMvfTU3URF4CKCOHOx3SfcNXoojS";
-        private string _connectUrl = "https://sandbox-connect.spotware.com/";
-        private string _apiUrl = "https://sandbox-api.spotware.com/";
-        private string _apiHost = "sandbox-tradeapi.spotware.com";
+        //private string _clientId = "141_P2S4PV2w2jv1fsJxHuhAkAhYaLGwBQpLk80DvHSj3bc0xhYPuC";
+        //private string _clientSecret = "ET2ee1B4JGme1XH4AQUNOInMvfTU3URF4CKCOHOx3SfcNXoojS";
+        //private string _connectUrl = "https://sandbox-connect.spotware.com/";
+        //private string _apiUrl = "https://sandbox-api.spotware.com/";
+        //private string _apiHost = "sandbox-tradeapi.spotware.com";
 
-        //private string _clientId = "178_bksI2VoPA1DXJpfvdcylCSVgNto35ZNtlaSaVEz6S348pxLEN7";
-        //private string _clientSecret = "S7nxdPMfQFeAh5MjCznVEsUfJ35DyHIeQJpAfCf2ktuVdwGfAU";
-        //private string _connectUrl = "https://connect.spotware.com/";
-        //private string _apiUrl = "https://api.spotware.com/";
-        //private string _apiHost = "tradeapi.spotware.com";
+        private string _clientId = "";
+        private string _clientSecret = "";
+        private string _connectUrl = "https://connect.spotware.com/";
+        private string _apiUrl = "https://api.spotware.com/";
+        private string _apiHost = "tradeapi.spotware.com";
         private int _apiPort = 5032; 
         private TcpClient _tcpClient = new TcpClient();
         private SslStream _apiSocket;
@@ -203,7 +203,7 @@ namespace Accounts_API_Web
         protected void btnSendPingRequest_Click(object sender, EventArgs e)
         {
             var msgFactory = new OpenApiMessagesFactory();
-            var msg = msgFactory.CreatePingRequest((ulong)DateTime.Now.Ticks);
+            var msg = msgFactory.CreatePingRequest(DateTime.Now.Ticks);
             Transmit(msg);
             byte[] _message = Listen(_apiSocket);
             var protoMessage = msgFactory.GetMessage(_message);
@@ -278,7 +278,7 @@ namespace Accounts_API_Web
             var accountID = ddlTradingAccounts.SelectedValue;
             var token = Session["Token"].ToString();
             var msgFactory = new OpenApiMessagesFactory();
-            var msg = msgFactory.CreateMarketOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", OpenApiLib.ProtoTradeSide.BUY, 100000);
+            var msg = msgFactory.CreateMarketOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", ProtoTradeSide.BUY, 100000);
             Transmit(msg);
             byte[] _message = Listen(_apiSocket);
             var protoMessage = msgFactory.GetMessage(_message);
@@ -291,7 +291,7 @@ namespace Accounts_API_Web
             var accountID = ddlTradingAccounts.SelectedValue;
             var token = Session["Token"].ToString();
             var msgFactory = new OpenApiMessagesFactory();
-            var msg = msgFactory.CreateMarketRangeOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", OpenApiLib.ProtoTradeSide.BUY, 100000, 1.09, 10);
+            var msg = msgFactory.CreateMarketRangeOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", ProtoTradeSide.BUY, 100000, 1.09, 10);
             Transmit(msg);
             byte[] _message = Listen(_apiSocket);
             var protoMessage = msgFactory.GetMessage(_message);
@@ -304,7 +304,7 @@ namespace Accounts_API_Web
             var accountID = ddlTradingAccounts.SelectedValue;
             var token = Session["Token"].ToString();
             var msgFactory = new OpenApiMessagesFactory();
-            var msg = msgFactory.CreateLimitOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", OpenApiLib.ProtoTradeSide.BUY, 100000, 1.09);
+            var msg = msgFactory.CreateLimitOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", ProtoTradeSide.BUY, 100000, 1.09);
             Transmit(msg);
             byte[] _message = Listen(_apiSocket);
             var protoMessage = msgFactory.GetMessage(_message);
@@ -330,7 +330,7 @@ namespace Accounts_API_Web
             var accountID = ddlTradingAccounts.SelectedValue;
             var token = Session["Token"].ToString();
             var msgFactory = new OpenApiMessagesFactory();
-            var msg = msgFactory.CreateStopOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", OpenApiLib.ProtoTradeSide.BUY, 1000000, 0.2);
+            var msg = msgFactory.CreateStopOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", ProtoTradeSide.BUY, 1000000, 0.2);
             Transmit(msg);
             byte[] _message = Listen(_apiSocket);
             var protoMessage = msgFactory.GetMessage(_message);

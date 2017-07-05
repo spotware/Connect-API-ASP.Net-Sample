@@ -48,6 +48,14 @@ namespace Connect_API.Trading
         {
             switch ((ProtoOAPayloadType)msg.PayloadType)
             {
+                case ProtoOAPayloadType.OA_PING_REQ:
+                    var _ping_req = ProtoPingReq.CreateBuilder().MergeFrom(msg.Payload).Build();
+                    return "PingRequest{timestamp:" + _ping_req.Timestamp.ToString() + "}";
+                    break;
+                case ProtoOAPayloadType.OA_PING_RES:
+                    var _ping_res = ProtoPingRes.CreateBuilder().MergeFrom(msg.Payload).Build();
+                    return "PingResponse{timestamp:" + _ping_res.Timestamp + "}";
+                    break;
                 case ProtoOAPayloadType.OA_AUTH_REQ:
                     var _auth_req = ProtoOAAuthReq.CreateBuilder().MergeFrom(msg.Payload).Build();
                     return "AuthRequest{clientId:" + _auth_req.ClientId + ", clientSecret:" + _auth_req.ClientSecret + "}";

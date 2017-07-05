@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenApiLib;
 using Google.ProtocolBuffers;
-
-
+using OpenApiLib;
 namespace Connect_API.Trading
 {
     public class OpenApiMessagesFactory
@@ -33,13 +31,13 @@ namespace Connect_API.Trading
                 GetMessage(msg);
             return lastMessagePayload;
         }
-        public ProtoPingReq GetPingRequest(byte[] msg = null)
+        public ProtoOAPingReq GetPingRequest(byte[] msg = null)
         {
-            return ProtoPingReq.CreateBuilder().MergeFrom(GetPayload(msg)).Build();
+            return ProtoOAPingReq.CreateBuilder().MergeFrom(GetPayload(msg)).Build();
         }
-        public ProtoPingRes GetPingResponse(byte[] msg = null)
+        public ProtoOAPingRes GetPingResponse(byte[] msg = null)
         {
-            return ProtoPingRes.CreateBuilder().MergeFrom(GetPayload(msg)).Build();
+            return ProtoOAPingRes.CreateBuilder().MergeFrom(GetPayload(msg)).Build();
         }
         public ProtoHeartbeatEvent GetHeartbeatEvent(byte[] msg = null)
         {
@@ -159,13 +157,13 @@ namespace Connect_API.Trading
         {
             return CreateMessage(messageBuilder.PayloadType, messageBuilder.Build().ToByteString(), clientMsgId);
         }
-        public ProtoMessage CreatePingRequest(ulong timestamp, string clientMsgId = null)
+        public ProtoMessage CreatePingRequest(long timestamp, string clientMsgId = null)
         {
-            return CreateMessage((uint)ProtoPayloadType.PING_REQ, ProtoPingReq.CreateBuilder().SetTimestamp(timestamp).Build().ToByteString(), clientMsgId);
+            return CreateMessage((uint)ProtoOAPayloadType.OA_PING_REQ, ProtoOAPingReq.CreateBuilder().SetTimestamp(timestamp).Build().ToByteString(), clientMsgId);
         }
-        public ProtoMessage CreatePingResponse(ulong timestamp, string clientMsgId = null)
+        public ProtoMessage CreatePingResponse(long timestamp, string clientMsgId = null)
         {
-            return CreateMessage((uint)ProtoPayloadType.PING_REQ, ProtoPingRes.CreateBuilder().SetTimestamp(timestamp).Build().ToByteString(), clientMsgId);
+            return CreateMessage((uint)ProtoOAPayloadType.OA_PING_REQ, ProtoOAPingRes.CreateBuilder().SetTimestamp(timestamp).Build().ToByteString(), clientMsgId);
         }
         public ProtoMessage CreateHeartbeatEvent(string clientMsgId = null)
         {
@@ -358,6 +356,7 @@ namespace Connect_API.Trading
             _msg.SetAccountId(accountId);
             _msg.SetAccessToken(accessToken);
             _msg.SetSymblolName(symbolName);
+            _msg.AddTrendbarPeriod(ProtoOATrendbarPeriod.M1);
             return CreateMessage((uint)_msg.PayloadType, _msg.Build().ToByteString(), clientMsgId);
         }
         public ProtoMessage CreateSubscribeForSpotsResponse(uint subscriptionId, string clientMsgId = null)
