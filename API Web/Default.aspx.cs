@@ -15,8 +15,8 @@ namespace Accounts_API_Web
 {
     public partial class _Default : Page
     {
-        //private string _clientId = "141_P2S4PV2w2jv1fsJxHuhAkAhYaLGwBQpLk80DvHSj3bc0xhYPuC";
-        //private string _clientSecret = "ET2ee1B4JGme1XH4AQUNOInMvfTU3URF4CKCOHOx3SfcNXoojS";
+        //private string _clientId = "";
+        //private string _clientSecret = "";
         //private string _connectUrl = "https://sandbox-connect.spotware.com/";
         //private string _apiUrl = "https://sandbox-api.spotware.com/";
         //private string _apiHost = "sandbox-tradeapi.spotware.com";
@@ -278,11 +278,16 @@ namespace Accounts_API_Web
             var accountID = ddlTradingAccounts.SelectedValue;
             var token = Session["Token"].ToString();
             var msgFactory = new OpenApiMessagesFactory();
-            var msg = msgFactory.CreateMarketOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", ProtoTradeSide.BUY, 100000);
+            var msg = msgFactory.CreateMarketOrderRequest(Convert.ToInt32(accountID), token, "EURUSD", ProtoTradeSide.BUY, Convert.ToInt64(txtOrderVolume.Text));
             Transmit(msg);
             byte[] _message = Listen(_apiSocket);
             var protoMessage = msgFactory.GetMessage(_message);
             lblResponse.Text = OpenApiMessagesPresentation.ToString(protoMessage);
+            lblResponse.Text += "<br/>";
+            Thread.Sleep(1000);
+            _message = Listen(_apiSocket);
+            protoMessage = msgFactory.GetMessage(_message);
+            lblResponse.Text += OpenApiMessagesPresentation.ToString(protoMessage);
         }
 
         protected void btnSendMarketRangeOrderRequest_Click(object sender, EventArgs e)

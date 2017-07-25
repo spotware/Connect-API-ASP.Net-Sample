@@ -364,6 +364,24 @@ namespace Accounts_API_Web {
         protected global::System.Web.UI.WebControls.Button btnSendMarketOrderRequest;
         
         /// <summary>
+        /// lblOrderVolume control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOrderVolume;
+        
+        /// <summary>
+        /// txtOrderVolume control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOrderVolume;
+        
+        /// <summary>
         /// btnSendMarketRangeOrderRequest control.
         /// </summary>
         /// <remarks>

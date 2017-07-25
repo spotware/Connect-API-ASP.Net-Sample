@@ -120,6 +120,7 @@
                 <asp:Button ID="btnSendGetAllSubscriptionsForSpotEventsRequest" runat="server" Text="Get All Subscriptions for Spot Events" OnClick="btnSendGetAllSubscriptionsForSpotEventsRequest_Click" />
                 <br />
                 <asp:Button ID="btnSendMarketOrderRequest" runat="server" Text="Send Market Order" OnClick="btnSendMarketOrderRequest_Click" />
+                <asp:Label ID="lblOrderVolume" runat="server" Text="Label">Order Volume</asp:Label><asp:TextBox ID="txtOrderVolume" runat="server"></asp:TextBox>
                 <br />
                 <asp:Button ID="btnSendMarketRangeOrderRequest" runat="server" Text="Send Market Range Order" OnClick="btnSendMarketRangeOrderRequest_Click" />
                 <br />
